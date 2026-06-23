@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleArc — Premium Fashion Store</title>
+<style>
+.back-to-portfolio{position:fixed;top:1.1rem;left:1.1rem;z-index:9999;display:inline-flex;align-items:center;background:rgba(10,10,15,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(168,85,247,0.3);text-decoration:none;padding:0.55rem 1.3rem;border-radius:50px;font-size:1rem;font-weight:900;letter-spacing:-0.02em;font-family:'Segoe UI',system-ui,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.35);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);background-clip:text;-webkit-background-clip:text;color:transparent;background-image:linear-gradient(135deg,#a855f7,#06b6d4);}
+.back-to-portfolio:hover{border-color:rgba(168,85,247,0.7);transform:scale(1.06);box-shadow:0 8px 32px rgba(124,58,237,0.45);}
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --black:#0a0a0a;
+    --dark:#111111;
+    --surface:#1c1c1c;
+    --accent:#e8c96b;
+    --accent2:#f5e6a3;
+    --white:#ffffff;
+    --gray:#f4f4f4;
+    --muted:#888;
+    --border:#e5e5e5;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--white);color:var(--black);font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border)}
+  .nav-top{background:var(--black);color:#fff;text-align:center;padding:10px;font-size:0.75rem;letter-spacing:1px}
+  .nav-top span{color:var(--accent)}
+  .nav-main{display:flex;align-items:center;justify-content:space-between;padding:16px 60px}
+  .nav-logo{font-size:1.6rem;font-weight:900;letter-spacing:-1px;color:var(--black)}
+  .nav-logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{color:var(--black);text-decoration:none;font-size:0.85rem;font-weight:500;position:relative}
+  .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--black);transition:width 0.3s}
+  .nav-links a:hover::after{width:100%}
+  .nav-actions{display:flex;align-items:center;gap:20px}
+  .nav-icon{font-size:1.1rem;cursor:pointer;position:relative}
+  .nav-cart-count{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#000;width:16px;height:16px;border-radius:50%;font-size:0.6rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .cart-count{display:none}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh}
+  .hero-left{background:var(--black);display:flex;align-items:center;padding:80px 70px;position:relative;overflow:hidden}
+  .hero-left::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(232,201,107,0.15),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+  .hero-left-content{position:relative;z-index:1}
+  .hero-season{font-size:0.7rem;letter-spacing:6px;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+  .hero-title{font-size:clamp(3rem,5vw,5rem);font-weight:900;color:#fff;line-height:1;letter-spacing:-2px;margin-bottom:24px}
+  .hero-title em{color:var(--accent);font-style:italic}
+  .hero-sub{color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.7;margin-bottom:36px;max-width:400px}
+  .hero-btns{display:flex;gap:14px}
+  .btn-gold{background:var(--accent);color:#000;padding:14px 32px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:background 0.2s;letter-spacing:1px}
+  .btn-gold:hover{background:var(--accent2)}
+  .btn-dark-outline{border:1px solid rgba(255,255,255,0.3);color:#fff;padding:14px 32px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all 0.2s}
+  .btn-dark-outline:hover{border-color:#fff}
+  .hero-right{position:relative;overflow:hidden}
+  .hero-right img{width:100%;height:100%;object-fit:cover;transition:transform 8s ease;transform:scale(1.05)}
+  .hero-right:hover img{transform:scale(1)}
+  .hero-badge{position:absolute;top:40px;right:40px;background:#fff;padding:16px 20px;text-align:center}
+  .hero-badge-pct{font-size:2rem;font-weight:900;color:var(--black)}
+  .hero-badge-text{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+  /* CATEGORIES */
+  .categories{padding:80px 60px;background:var(--gray)}
+  .sec-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px}
+  .sec-title{font-size:1.8rem;font-weight:900;letter-spacing:-0.5px}
+  .sec-link{font-size:0.85rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+  .sec-link:hover{color:var(--black)}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .cat-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4}
+  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+  .cat-card:hover img{transform:scale(1.06)}
+  .cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);display:flex;align-items:flex-end;padding:24px}
+  .cat-name{color:#fff;font-size:1.1rem;font-weight:700}
+  .cat-count{color:rgba(255,255,255,0.6);font-size:0.75rem;margin-top:2px}
+
+  /* FEATURED */
+  .featured{padding:80px 60px}
+  .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+  .prod-card{cursor:pointer}
+  .prod-img-wrap{position:relative;overflow:hidden;background:var(--gray);margin-bottom:14px;aspect-ratio:3/4}
+  .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+  .prod-card:hover .prod-img-wrap img{transform:scale(1.05)}
+  .prod-actions{position:absolute;bottom:-50px;left:0;right:0;background:#fff;padding:12px;text-align:center;transition:bottom 0.3s;font-size:0.88rem;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-transform:uppercase}
+  .prod-card:hover .prod-actions{bottom:0}
+  .prod-tag{position:absolute;top:12px;left:12px;background:var(--black);color:#fff;padding:4px 10px;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase}
+  .prod-tag.sale{background:var(--accent);color:#000}
+  .prod-wishlist{position:absolute;top:12px;right:12px;background:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;opacity:0;transition:opacity 0.3s;cursor:pointer}
+  .prod-card:hover .prod-wishlist{opacity:1}
+  .prod-name{font-size:0.9rem;font-weight:600;margin-bottom:4px}
+  .prod-cat{font-size:0.75rem;color:var(--muted);margin-bottom:8px}
+  .prod-price{display:flex;align-items:center;gap:10px}
+  .price-now{font-size:1rem;font-weight:700}
+  .price-old{font-size:0.85rem;color:var(--muted);text-decoration:line-through}
+  .price-save{font-size:0.7rem;background:rgba(232,201,107,0.2);color:#8a6800;padding:2px 8px;border-radius:100px;font-weight:600}
+
+  /* BANNER */
+  .banner{margin:0 60px;background:var(--black);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;min-height:400px}
+  .banner-content{padding:70px;display:flex;flex-direction:column;justify-content:center}
+  .banner-tag{font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .banner-title{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
+  .banner-sub{color:rgba(255,255,255,0.6);font-size:0.9rem;line-height:1.7;margin-bottom:32px}
+  .banner-img{position:relative;overflow:hidden}
+  .banner-img img{width:100%;height:100%;object-fit:cover}
+
+  /* NEW ARRIVALS */
+  .new-arrivals{padding:80px 60px;background:var(--gray)}
+
+  /* NEWSLETTER */
+  .newsletter{padding:80px 60px;background:var(--accent);text-align:center}
+  .nl-title{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;margin-bottom:12px;letter-spacing:-0.5px}
+  .nl-sub{color:rgba(0,0,0,0.6);margin-bottom:32px;font-size:0.95rem}
+  .nl-form{display:flex;max-width:480px;margin:0 auto;gap:0}
+  .nl-input{flex:1;padding:16px 20px;border:none;outline:none;font-size:0.9rem;background:#fff}
+  .nl-btn{background:var(--black);color:#fff;padding:16px 28px;border:none;font-size:0.85rem;font-weight:700;cursor:pointer;letter-spacing:1px;transition:opacity 0.2s}
+  .nl-btn:hover{opacity:0.85}
+
+  /* FOOTER */
+  footer{background:var(--dark);color:rgba(255,255,255,0.7);padding:70px 60px 30px}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:50px}
+  .f-brand .nav-logo{color:#fff;display:block;margin-bottom:16px}
+  .f-brand p{font-size:0.85rem;line-height:1.8;opacity:0.5}
+  .f-col h4{color:#fff;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+  .f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .f-col ul a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+  .f-col ul a:hover{color:var(--accent)}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:30px;display:flex;justify-content:space-between;font-size:0.75rem;opacity:0.4}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .hero-right{min-height:50vh}
+    .cat-grid{grid-template-columns:1fr 1fr}
+    .products-grid{grid-template-columns:1fr 1fr}
+    .banner{grid-template-columns:1fr;margin:0 24px}
+    .banner-img{min-height:300px}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:30px}
+    .nav-main{padding:16px 24px}
+    .categories,.featured,.new-arrivals{padding:60px 24px}
+    .newsletter{padding:60px 24px}
+    footer{padding:50px 24px 30px}
+  }
+</style>
+</head>
+<body>
+<a href="index.html" class="back-to-portfolio">Ali Akber</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">FREE SHIPPING on orders over <span>$75</span> · Use code <span>STYLE20</span> for 20% off your first order</div>
+  <div class="nav-main">
+    <div class="nav-logo">Style<span>Arc</span></div>
+    <ul class="nav-links">
+      <li><a href="#categories">Women</a></li>
+      <li><a href="#categories">Men</a></li>
+      <li><a href="#featured">New Arrivals</a></li>
+      <li><a href="#categories">Sale</a></li>
+    </ul>
+    <div class="nav-actions">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-icon">♡</span>
+      <span class="nav-icon" style="position:relative">🛒<span class="nav-cart-count cart-count">3</span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-content">
+      <div class="hero-season">Summer Collection 2024</div>
+      <h1 class="hero-title">Wear Your<br><em>Story</em></h1>
+      <p class="hero-sub">Curated fashion for the modern individual. Premium fabrics, timeless designs, and effortless style — delivered to your door in Pakistan.</p>
+      <div class="hero-btns">
+        <a href="#featured" class="btn-gold">Shop Now</a>
+        <a href="#categories" class="btn-dark-outline">Browse Lookbook</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Fashion hero">
+    <div class="hero-badge">
+      <div class="hero-badge-pct">40%</div>
+      <div class="hero-badge-text">Off Summer Sale</div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="sec-header">
+    <h2 class="sec-title">Shop by Category</h2>
+    <a href="#" class="sec-link">All categories →</a>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1581338834647-b0fb40704e21?w=500&q=80" alt="Women's Collection">
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-name">Women's</div>
+          <div class="cat-count">248 products</div>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=500&q=80" alt="Men's Collection">
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-name">Men's</div>
+          <div class="cat-count">194 products</div>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80" alt="Accessories">
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-name">Accessories</div>
+          <div class="cat-count">132 products</div>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500&q=80" alt="Footwear">
+      <div class="cat-overlay">
+        <div>
+          <div class="cat-name">Footwear</div>
+          <div class="cat-count">89 products</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured" id="featured">
+  <div class="sec-header">
+    <h2 class="sec-title">Trending Now</h2>
+    <a href="#" class="sec-link">View all →</a>
+  </div>
+  <div class="products-grid">
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80" alt="Product">
+        <div class="prod-tag sale">Sale</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Women's Wear</div>
+      <div class="prod-name">Linen Slip Dress</div>
+      <div class="prod-price">
+        <span class="price-now">$89</span>
+        <span class="price-old">$149</span>
+        <span class="price-save">Save 40%</span>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Men's Wear</div>
+      <div class="prod-name">Relaxed Oxford Shirt</div>
+      <div class="prod-price">
+        <span class="price-now">$65</span>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Accessories</div>
+      <div class="prod-name">Structured Tote Bag</div>
+      <div class="prod-price">
+        <span class="price-now">$120</span>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Product">
+        <div class="prod-tag sale">Sale</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Footwear</div>
+      <div class="prod-name">Classic Runner Sneakers</div>
+      <div class="prod-price">
+        <span class="price-now">$79</span>
+        <span class="price-old">$129</span>
+        <span class="price-save">Save 39%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-content">
+    <div class="banner-tag">Limited Time</div>
+    <h2 class="banner-title">Mid-Season<br>Sale Up To<br>50% Off</h2>
+    <p class="banner-sub">Hundreds of styles from premium brands. Free shipping on all orders above PKR 5,000. Limited stock — shop before it's gone.</p>
+    <a href="#categories" class="btn-gold" style="align-self:flex-start">Shop the Sale</a>
+  </div>
+  <div class="banner-img">
+    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=700&q=80" alt="Sale banner">
+  </div>
+</div>
+
+<!-- NEW ARRIVALS -->
+<section class="new-arrivals" style="padding:80px 60px;background:var(--gray)" id="new">
+  <div class="sec-header">
+    <h2 class="sec-title">New Arrivals</h2>
+    <a href="#" class="sec-link">See all new →</a>
+  </div>
+  <div class="products-grid">
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Women's Wear</div>
+      <div class="prod-name">Pleated Midi Skirt</div>
+      <div class="prod-price"><span class="price-now">$72</span></div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Women's Wear</div>
+      <div class="prod-name">Wrap Blazer Jacket</div>
+      <div class="prod-price"><span class="price-now">$145</span></div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Men's Wear</div>
+      <div class="prod-name">Cargo Utility Pants</div>
+      <div class="prod-price"><span class="price-now">$88</span></div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80" alt="Product">
+        <div class="prod-tag">New</div>
+        <div class="prod-wishlist">♡</div>
+        <div class="prod-actions" onclick="addToCart(this)">Add to Cart</div>
+      </div>
+      <div class="prod-cat">Men's Wear</div>
+      <div class="prod-name">Premium Crewneck Tee</div>
+      <div class="prod-price"><span class="price-now">$42</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2 class="nl-title">Get 15% Off Your First Order</h2>
+  <p class="nl-sub">Subscribe to StyleArc's newsletter for exclusive deals, new arrivals, and style inspiration.</p>
+  <form class="nl-form" onsubmit="handleNewsletter(event)">
+    <input type="email" class="nl-input" placeholder="Enter your email address">
+    <button type="submit" class="nl-btn">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <span class="nav-logo">Style<span>Arc</span></span>
+      <p>Premium fashion for every occasion. Curated collections, thoughtful design, and sustainable sourcing — because you deserve the best.</p>
+    </div>
+    <div class="f-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Women's</a></li>
+        <li><a href="#">Men's</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About StyleArc</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Affiliate Program</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 St

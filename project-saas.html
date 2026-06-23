@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowAI — Supercharge Your Productivity with AI</title>
+<style>
+.back-to-portfolio{position:fixed;top:1.1rem;left:1.1rem;z-index:9999;display:inline-flex;align-items:center;background:rgba(10,10,15,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(168,85,247,0.3);text-decoration:none;padding:0.55rem 1.3rem;border-radius:50px;font-size:1rem;font-weight:900;letter-spacing:-0.02em;font-family:'Segoe UI',system-ui,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.35);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);background-clip:text;-webkit-background-clip:text;color:transparent;background-image:linear-gradient(135deg,#a855f7,#06b6d4);}
+.back-to-portfolio:hover{border-color:rgba(168,85,247,0.7);transform:scale(1.06);box-shadow:0 8px 32px rgba(124,58,237,0.45);}
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#05050f;
+    --surface:#0d0d1f;
+    --card:#111125;
+    --purple:#7c3aed;
+    --purple2:#a855f7;
+    --blue:#3b82f6;
+    --cyan:#06b6d4;
+    --green:#10b981;
+    --white:#ffffff;
+    --muted:#94a3b8;
+    --border:rgba(255,255,255,0.07);
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--white);font-family:system-ui,-apple-system,sans-serif;overflow-x:hidden}
+
+  /* GLOW EFFECTS */
+  .glow-purple{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.25),transparent 70%);pointer-events:none}
+  .glow-blue{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);pointer-events:none}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;padding:0 60px;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);background:rgba(5,5,15,0.8)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .nav-logo{display:flex;align-items:center;gap:8px;font-size:1.3rem;font-weight:800}
+  .logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--purple),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+  .nav-links a:hover{color:#fff}
+  .nav-actions{display:flex;gap:12px;align-items:center}
+  .btn-nav-ghost{color:var(--muted);font-size:0.875rem;font-weight:600;text-decoration:none;padding:8px 18px;transition:color 0.2s}
+  .btn-nav-ghost:hover{color:#fff}
+  .btn-nav-cta{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:9px 20px;border-radius:8px;font-size:0.875rem;font-weight:700;text-decoration:none;transition:opacity 0.2s}
+  .btn-nav-cta:hover{opacity:0.9}
+
+  /* HERO */
+  .hero{padding:160px 60px 120px;text-align:center;position:relative;overflow:hidden}
+  .hero .glow-purple{width:600px;height:600px;top:-100px;left:50%;transform:translateX(-50%);opacity:0.8}
+  .hero .glow-blue{width:400px;height:400px;bottom:-100px;right:100px;opacity:0.5}
+  .hero-content{position:relative;z-index:2;max-width:900px;margin:0 auto}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:var(--purple2);padding:8px 20px;border-radius:100px;font-size:0.88rem;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:32px}
+  .badge-new{background:var(--purple);color:#fff;padding:2px 8px;border-radius:100px;font-size:0.65rem;font-weight:700;letter-spacing:0.5px}
+  .hero-title{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+  .hero-title .grad{background:linear-gradient(135deg,var(--purple2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{color:var(--muted);font-size:1.15rem;line-height:1.7;max-width:600px;margin:0 auto 40px}
+  .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn-primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:15px 32px;border-radius:10px;font-size:0.95rem;font-weight:700;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 8px 32px rgba(124,58,237,0.4)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(124,58,237,0.5)}
+  .btn-outline{border:1px solid var(--border);color:#fff;padding:15px 32px;border-radius:10px;font-size:0.95rem;font-weight:600;text-decoration:none;backdrop-filter:blur(10px);background:rgba(255,255,255,0.04);transition:background 0.2s}
+  .btn-outline:hover{background:rgba(255,255,255,0.08)}
+  .hero-social{margin-top:48px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--muted);font-size:0.8rem}
+  .social-avatars{display:flex}
+  .s-avatar{width:32px;height:32px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;object-fit:cover}
+  .hero-dash{margin-top:70px;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 40px 100px rgba(0,0,0,0.5);position:relative}
+  .hero-dash::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--bg) 100%);z-index:1;pointer-events:none}
+  .dash-bar{background:var(--surface);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  .dash-dot{width:10px;height:10px;border-radius:50%}
+  .dash-url{background:rgba(255,255,255,0.06);border-radius:6px;padding:4px 16px;font-size:0.75rem;color:var(--muted);flex:1;text-align:center;max-width:260px;margin:0 auto}
+  .dash-body{background:var(--card);padding:24px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+  .dash-stat{background:var(--surface);border-radius:10px;padding:16px;border:1px solid var(--border)}
+  .ds-label{font-size:0.7rem;color:var(--muted);margin-bottom:6px}
+  .ds-value{font-size:1.4rem;font-weight:800}
+  .ds-change{font-size:0.7rem;color:var(--green);margin-top:4px}
+  .dash-chart{grid-column:1/-1;background:var(--surface);border-radius:10px;padding:20px;border:1px solid var(--border);height:120px;display:flex;align-items:flex-end;gap:6px}
+  .bar{flex:1;background:linear-gradient(to top,var(--purple),var(--purple2));border-radius:4px 4px 0 0;opacity:0.7;transition:opacity 0.2s}
+  .bar:hover{opacity:1}
+
+  /* LOGOS */
+  .logos{padding:60px;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .logos-label{color:var(--muted);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+  .logos-strip{display:flex;justify-content:center;align-items:center;gap:60px;flex-wrap:wrap}
+  .logo-item{color:rgba(255,255,255,0.25);font-size:0.95rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s}
+  .logo-item:hover{color:rgba(255,255,255,0.7)}
+
+  /* FEATURES */
+  .features{padding:120px 60px}
+  .features-wrap{max-width:1200px;margin:0 auto}
+  .sec-header{text-align:center;margin-bottom:70px}
+  .sec-tag{display:inline-block;background:rgba(124,58,237,0.15);color:var(--purple2);padding:6px 16px;border-radius:100px;font-size:0.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+  .sec-title{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1px;margin-bottom:14px}
+  .sec-sub{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto;line-height:1.7}
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;transition:all 0.3s}
+  .feat-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-4px);box-shadow:0 20px 60px rgba(124,58,237,0.1)}
+  .feat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px}
+  .fi-purple{background:rgba(124,58,237,0.15)}
+  .fi-blue{background:rgba(59,130,246,0.15)}
+  .fi-cyan{background:rgba(6,182,212,0.15)}
+  .fi-green{background:rgba(16,185,129,0.15)}
+  .feat-title{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+  .feat-desc{color:var(--muted);font-size:0.875rem;line-height:1.7}
+
+  /* HOW IT WORKS */
+  .how{padding:120px 60px;background:var(--surface);position:relative;overflow:hidden}
+  .how .glow-purple{width:500px;height:500px;top:-100px;right:-100px;opacity:0.3}
+  .how-wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:60px;position:relative}
+  .steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:1px;background:linear-gradient(to right,var(--purple),var(--cyan));z-index:0}
+  .step{text-align:center;position:relative;z-index:1}
+  .step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;margin:0 auto 20px;box-shadow:0 8px 24px rgba(124,58,237,0.4)}
+  .step-title{font-size:1rem;font-weight:700;margin-bottom:8px}
+  .step-desc{color:var(--muted);font-size:0.85rem;line-height:1.7}
+
+  /* PRICING */
+  .pricing{padding:120px 60px}
+  .pricing-wrap{max-width:1100px;margin:0 auto}
+  .pricing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:60px;color:var(--muted);font-size:0.875rem}
+  .toggle-wrap{width:44px;height:24px;background:var(--purple);border-radius:100px;position:relative;cursor:pointer}
+  .toggle-knob{position:absolute;top:2px;right:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:right 0.3s}
+  .save-badge{background:rgba(16,185,129,0.15);color:var(--green);padding:3px 10px;border-radius:100px;font-size:0.7rem;font-weight:700}
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px}
+  .price-card.featured{background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(168,85,247,0.1));border-color:rgba(124,58,237,0.5);position:relative;transform:scale(1.03)}
+  .featured-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;padding:5px 20px;border-radius:100px;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+  .price-tier{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+  .price-amount{font-size:3rem;font-weight:900;margin-bottom:4px}
+  .price-amount span{font-size:1rem;font-weight:400;color:var(--muted)}
+  .price-period{color:var(--muted);font-size:0.85rem;margin-bottom:28px}
+  .price-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+  .price-features li{display:flex;align-items:center;gap:10px;font-size:0.875rem;color:rgba(255,255,255,0.8)}
+  .price-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+  .price-features li.no{color:var(--muted)}
+  .price-features li.no::before{content:'✕';color:rgba(255,255,255,0.2)}
+  .btn-price{display:block;text-align:center;padding:14px;border-radius:10px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:all 0.2s}
+  .btn-price-outline{border:1px solid var(--border);color:#fff;background:transparent}
+  .btn-price-outline:hover{background:rgba(255,255,255,0.06)}
+  .btn-price-solid{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 8px 24px rgba(124,58,237,0.4)}
+  .btn-price-solid:hover{opacity:0.9}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:120px 60px;background:var(--surface)}
+  .test-wrap{max-width:1200px;margin:0 auto}
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px}
+  .test-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px}
+  .test-stars{color:var(--purple2);font-size:0.9rem;margin-bottom:16px;letter-spacing:2px}
+  .test-text{color:rgba(255,255,255,0.85);font-size:0.925rem;line-height:1.8;margin-bottom:24px}
+  .test-author{display:flex;align-items:center;gap:12px}
+  .t-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(124,58,237,0.3)}
+  .t-name{font-size:0.875rem;font-weight:700}
+  .t-role{font-size:0.75rem;color:var(--muted);margin-top:2px}
+
+  /* CTA */
+  .cta{padding:120px 60px;text-align:center;position:relative;overflow:hidden}
+  .cta .glow-purple{width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .cta-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+  .cta h2{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;letter-spacing:-2px;margin-bottom:20px;line-height:1.1}
+  .cta p{color:var(--muted);font-size:1.05rem;margin-bottom:40px;line-height:1.7}
+  .cta-form{display:flex;max-width:440px;margin:0 auto;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .cta-input{flex:1;background:var(--card);border:none;padding:15px 20px;color:#fff;font-size:0.9rem;outline:none}
+  .cta-input::placeholder{color:var(--muted)}
+  .cta-btn{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;border:none;padding:15px 24px;font-size:0.875rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;white-space:nowrap}
+  .cta-btn:hover{opacity:0.9}
+  .cta-note{color:var(--muted);font-size:0.75rem;margin-top:14px}
+
+  /* FOOTER */
+  footer{background:var(--surface);border-top:1px solid var(--border);padding:70px 60px 30px}
+  .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:50px}
+  .f-brand .nav-logo{margin-bottom:16px;font-size:1.2rem}
+  .f-brand p{color:var(--muted);font-size:0.85rem;line-height:1.8}
+  .f-col h4{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px}
+  .f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .f-col ul a{color:var(--muted);text-decoration:none;font-size:0.875rem;transition:color 0.2s}
+  .f-col ul a:hover{color:#fff}
+  .footer-bottom{max-width:1200px;margin:0 auto;padding-top:30px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.25)}
+
+  @media(max-width:900px){
+    nav{padding:0 24px}
+    .nav-links{display:none}
+    .hero,.features,.how,.pricing,.testimonials,.cta,footer,.logos{padding-left:24px;padding-right:24px}
+    .features-grid,.pricing-grid,.test-grid{grid-template-columns:1fr}
+    .price-card.featured{transform:scale(1)}
+    .steps{grid-template-columns:1fr 1fr}
+    .steps::before{display:none}
+    .dash-body{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:30px}
+  }
+</style>
+</head>
+<body>
+<a href="index.html" class="back-to-portfolio">Ali Akber</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-mark">⚡</div>
+      FlowAI
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimonials">Customers</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn-nav-ghost">Sign In</a>
+      <a href="#pricing" class="btn-nav-cta">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow-purple"></div>
+  <div class="glow-blue"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-new">NEW</span>
+      Introducing FlowAI 2.0 — now with GPT-4 integration
+    </div>
+    <h1 class="hero-title">Your Team's<br><span class="grad">AI-Powered</span><br>Productivity Hub</h1>
+    <p class="hero-sub">Replace 10 tools with one. FlowAI handles your writing, research, scheduling, and workflows — so your team can focus on what actually matters.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">Start Free — No Credit Card</a>
+      <a href="#features" class="btn-outline">See How It Works →</a>
+    </div>
+    <div class="hero-social">
+      <div class="social-avatars">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=80" alt="" class="s-avatar">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=80" alt="" class="s-avatar">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&q=80" alt="" class="s-avatar">
+      </div>
+      <span>Join <strong>12,000+</strong> teams already using FlowAI</span>
+    </div>
+    <div class="hero-dash">
+      <div class="dash-bar">
+        <div class="dash-dot" style="background:#ef4444"></div>
+        <div class="dash-dot" style="background:#f59e0b"></div>
+        <div class="dash-dot" style="background:#10b981"></div>
+        <div class="dash-url">app.flowai.com/dashboard</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-stat">
+          <div class="ds-label">Tasks Completed</div>
+          <div class="ds-value">1,284</div>
+          <div class="ds-change">↑ 23% this week</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Hours Saved</div>
+          <div class="ds-value">48h</div>
+          <div class="ds-change">↑ 18% vs last week</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">AI Requests</div>
+          <div class="ds-value">5,302</div>
+          <div class="ds-change">↑ 41% this month</div>
+        </div>
+        <div class="dash-stat">
+          <div class="ds-label">Team Efficiency</div>
+          <div class="ds-value">94%</div>
+          <div class="ds-change">↑ 12% vs baseline</div>
+        </div>
+        <div class="dash-chart">
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:40%"></div>
+          <div class="bar" style="height:75%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:85%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:90%"></div>
+          <div class="bar" style="height:65%"></div>
+          <div class="bar" style="height:100%"></div>
+          <div class="bar" style="height:80%"></div>
+          <div class="bar" style="height:95%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos">
+  <div class="logos-label">Trusted by teams at</div>
+  <div class="logos-strip">
+    <span class="logo-item">Stripe</span>
+    <span class="logo-item">Notion</span>
+    <span class="logo-item">Linear</span>
+    <span class="logo-item">Vercel</span>
+    <span class="logo-item">Shopify</span>
+    <span class="logo-item">Figma</span>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Everything You Need</div>
+      <h2 class="sec-title">The Complete AI Toolkit</h2>
+      <p class="sec-sub">Every tool your team needs — unified into one blazing-fast AI workspace. No context-switching, no subscriptions hell.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon fi-purple">✍️</div>
+        <div class="feat-title">AI Writing Assistant</div>
+        <p class="feat-desc">Draft emails, reports, proposals and social content in seconds. FlowAI matches your brand voice and writing style automatically.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-blue">🔬</div>
+        <div class="feat-title">Deep Research Mode</div>
+        <p class="feat-desc">Summarize 100-page documents, research competitors, extract insights, and get structured reports in minutes, not hours.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-cyan">⚡</div>
+        <div class="feat-title">Workflow Automation</div>
+        <p class="feat-desc">Build AI-powered workflows that trigger automatically. Connect with 200+ tools including Slack, Notion, Gmail, and Linear.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-green">🗓️</div>
+        <div class="feat-title">Smart Scheduling</div>
+        <p class="feat-desc">AI reads your calendar and optimizes your day. It schedules meetings, sets focus blocks, and eliminates back-and-forth emails.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-purple">💬</div>
+        <div class="feat-title">Team Chat AI</div>
+        <p class="feat-desc">An AI assistant that lives in your team's workspace — answers questions, summarizes threads, and takes notes in real-time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon fi-blue">📊</div>
+        <div class="feat-title">Analytics & Insights</div>
+        <p class="feat-desc">Track productivity, AI usage, and time saved across your team. Real-time dashboards that show where to focus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="glow-purple"></div>
+  <div class="how-wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Simple Setup</div>
+      <h2 class="sec-title">Up and Running in Minutes</h2>
+      <p class="sec-sub">No technical expertise needed. Your whole team can be onboarded in under 15 minutes.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Sign Up Free</div>
+        <p class="step-desc">Create your account in 30 seconds. No credit card required for the 14-day trial.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Connect Your Tools</div>
+        <p class="step-desc">Link Slack, Notion, Gmail, and 200+ other apps in one click. We handle the setup.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Train Your AI</div>
+        <p class="step-desc">Upload documents and brand guides. FlowAI learns your team's voice and preferences.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Watch It Fly</div>
+        <p class="step-desc">Your team saves hours daily. Track productivity gains live in your FlowAI dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Pricing</div>
+      <h2 class="sec-title">Simple, Transparent Pricing</h2>
+      <p class="sec-sub">Start free, scale as you grow. No hidden fees, no surprises. Cancel anytime.</p>
+    </div>
+    <div class="pricing-toggle">
+      <span>Monthly</span>
+      <div class="toggle-wrap"><div class="toggle-knob"></div></div>
+      <span>Annual <span class="save-badge">Save 30%</span></span>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount">$9<span>/mo</span></div>
+        <div class="price-period">per user · billed monthly</div>
+        <ul class="price-features">
+          <li>5,000 AI requests/month</li>
+          <li>Writing &amp; Research tools</li>
+          <li>3 workflow automations</li>
+          <li>Email support</li>
+          <li class="no">Team collaboration</li>
+          <li class="no">Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn-price btn-price-outline">Start Free Trial</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-tag">Most Popular</div>
+        <div class="price-tier">Professional</div>
+        <div class="price-amount">$29<span>/mo</span></div>
+        <div class="price-period">per user · billed monthly</div>
+        <ul class="price-features">
+          <li>Unlimited AI requests</li>
+          <li>All Writing &amp; Research tools</li>
+          <li>Unlimited automations</li>
+          <li>Priority support 24/7</li>
+          <li>Team collaboration</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <a href="#" class="btn-price btn-price-solid">Start Free Trial</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-amount">$99<span>/mo</span></div>
+        <div class="price-period">per team · up to 20 users</div>
+        <ul class="price-features">
+          <li>Everything in Pro</li>
+          <li>Custom AI model fine-tuning</li>
+          <li>SSO &amp; advanced security</li>
+          <li>Dedicated success manager</li>
+          <li>SLA guarantee (99.9%)</li>
+          <li>On-premise deployment option</li>
+        </ul>
+        <a href="#" class="btn-price btn-price-outline">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="test-wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Customer Love</div>
+      <h2 class="sec-title">Teams Across the World Trust FlowAI</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"FlowAI cut our content production time by 70%. Our marketing team went from publishing 5 pieces a week to 18. It's not a tool anymore — it's a team member."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="" class="t-avatar">
+          <div>
+            <div class="t-name">Sarah Chen</div>
+            <div class="t-role">Head of Marketing · Veritas Labs</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"I was skeptical, but 3 months in — our engineering team saves 15 hours per week on documentation alone. The ROI is insane. Worth every penny."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="" class="t-avatar">
+          <div>
+            <div class="t-name">Marcus Reid</div>
+            <div class="t-role">CTO · BuildStack</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-text">"Every startup needs this. We went from a 6-person team doing the work of 4 to a 6-person team doing the work of 12. FlowAI is our unfair advantage."</p>
+        <div class="test-author">
+          <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&q=80" alt="" class="t-avatar">
+          <div>
+            <div class="t-name">Priya Nair</div>
+            <div class="t-role">CEO · Capsule.ai</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="glow-purple"></div>
+  <div class="cta-content">
+    <h2>Start Building<br>Faster Today</h2>
+    <p>Join 12,000+ teams. 14-day free trial, no credit card required. Set up in under 5 minutes.</p>
+    <form class="cta-form" onsubmit="handleCta(event)">
+      <input type="email" class="cta-input" placeholder="Enter your work email">
+      <button type="submit" class="cta-btn">Get Started Free</button>
+    </form>
+    <p class="cta-note">Free 14-day trial · No credit card · Cancel anytime</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <div class="nav-logo" style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div class="logo-mark">⚡</div> FlowAI
+      </div>
+      <p>The all-in-one AI workspace for modern teams. Write, research, automate, and collaborate — all in one place.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Changelog</a></li>
+        <li><a href="#">Roadmap</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">API Reference</a></li>
+        <li><a href="#">Status</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 FlowAI Inc. All rights reserved.</span>
+    <span>Built by Ali Akber · AI-Powered Development</span>
+  </div>
+</footer>
+
+<script>
+  // Parallax glow on mouse move
+  document.addEventListener('mousemove',(e)=>{
+    const x=(e.clientX/window.innerWidth-0.5)*30;
+    const y=(e.clientY/window.innerHeight-0.5)*30;
+    document.querySelectorAll('.glow-purple'
