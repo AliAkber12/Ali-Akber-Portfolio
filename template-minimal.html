@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Blanc — Minimal Template</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:#fafafa;color:#111;font-family:'Georgia',serif;overflow-x:hidden;}
+  :root{--accent:#1a1a2e;--muted:#888;--border:#e5e5e5;--light:#f5f5f5;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 8%;background:#fafafa;border-bottom:1px solid var(--border);}
+  .logo{font-size:1.1rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:#111;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-family:'Segoe UI',sans-serif;font-size:0.82rem;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:#111;}
+  .nav-cta{background:#111;color:#fff;border:none;padding:0.55rem 1.4rem;font-family:'Segoe UI',sans-serif;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+  .nav-cta:hover{background:#333;}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:0 8%;padding-top:80px;position:relative;}
+  .hero-inner{max-width:900px;}
+  .hero-eyebrow{font-family:'Segoe UI',sans-serif;font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;}
+  .hero-eyebrow::after{content:'';height:1px;width:60px;background:var(--muted);}
+  h1.hero-title{font-size:clamp(3rem,7vw,7rem);font-weight:400;line-height:0.95;letter-spacing:-0.03em;margin-bottom:2.5rem;}
+  h1.hero-title em{font-style:italic;color:var(--muted);}
+  .hero-sub{font-family:'Segoe UI',sans-serif;font-size:1rem;color:var(--muted);max-width:420px;line-height:1.8;margin-bottom:3rem;}
+  .hero-actions{display:flex;align-items:center;gap:2.5rem;}
+  .btn-link{background:none;border:none;font-family:'Segoe UI',sans-serif;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:#111;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:4px;}
+  .btn-solid{background:#111;color:#fff;border:none;padding:0.85rem 2rem;font-family:'Segoe UI',sans-serif;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+  .btn-solid:hover{background:#333;}
+  .hero-img{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:380px;height:480px;object-fit:cover;filter:grayscale(20%);}
+
+  /* MARQUEE */
+  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;overflow:hidden;background:#fff;}
+  .marquee{display:flex;gap:4rem;white-space:nowrap;animation:marquee 20s linear infinite;font-family:'Segoe UI',sans-serif;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+  @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .marquee-item{display:flex;align-items:center;gap:4rem;}
+  .marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--muted);}
+
+  /* WORK */
+  section{padding:8rem 8%;}
+  .section-label{font-family:'Segoe UI',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3rem;display:flex;align-items:center;gap:1rem;}
+  .section-label::after{content:'';height:1px;flex:1;background:var(--border);}
+  .work-list{border-top:1px solid var(--border);}
+  .work-item{display:flex;align-items:center;justify-content:space-between;padding:2rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding-left 0.3s;}
+  .work-item:hover{padding-left:1rem;}
+  .work-num{font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:var(--muted);width:40px;}
+  .work-name{font-size:1.8rem;font-weight:400;flex:1;}
+  .work-type{font-family:'Segoe UI',sans-serif;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+  .work-arrow{font-size:1.2rem;color:var(--muted);}
+  .work-item:hover .work-arrow{color:#111;}
+  .work-item:hover .work-name{font-style:italic;}
+
+  /* ABOUT */
+  #about{background:#fff;}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+  .about-img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(30%);}
+  .about-text h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.1;margin-bottom:2rem;letter-spacing:-0.02em;}
+  .about-text h2 em{font-style:italic;color:var(--muted);}
+  .about-text p{font-family:'Segoe UI',sans-serif;font-size:0.95rem;color:var(--muted);line-height:1.85;margin-bottom:1.5rem;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+  .about-stat{border-top:1px solid var(--border);padding-top:1rem;}
+  .about-stat-num{font-size:2.5rem;font-weight:400;margin-bottom:0.25rem;}
+  .about-stat-label{font-family:'Segoe UI',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+
+  /* SERVICES */
+  #services{background:var(--light);}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;}
+  .service-minimal{padding:2.5rem 0;border-top:1px solid var(--border);}
+  .service-minimal-num{font-family:'Segoe UI',sans-serif;font-size:0.72rem;color:var(--muted);margin-bottom:1rem;}
+  .service-minimal h3{font-size:1.4rem;font-weight:400;margin-bottom:1rem;}
+  .service-minimal p{font-family:'Segoe UI',sans-serif;font-size:0.85rem;color:var(--muted);line-height:1.8;}
+  .service-minimal-price{font-family:'Segoe UI',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:1.5rem;color:#111;}
+
+  /* PRICING */
+  .pricing-minimal{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);}
+  .price-minimal{padding:2.5rem 2rem;border-right:1px solid var(--border);}
+  .price-minimal:last-child{border-right:none;}
+  .price-minimal-name{font-family:'Segoe UI',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+  .price-minimal-amount{font-size:3rem;font-weight:400;margin-bottom:0.25rem;}
+  .price-minimal-period{font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:var(--muted);margin-bottom:2rem;}
+  .price-minimal ul{list-style:none;}
+  .price-minimal li{font-family:'Segoe UI',sans-serif;font-size:0.82rem;color:var(--muted);padding:0.4rem 0;border-bottom:1px solid var(--border);}
+  .price-minimal-btn{margin-top:2rem;width:100%;background:#111;color:#fff;border:none;padding:0.75rem;font-family:'Segoe UI',sans-serif;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;}
+
+  /* CTA */
+  .cta-minimal{background:#111;color:#fff;padding:8rem 8%;text-align:center;}
+  .cta-minimal h2{font-size:clamp(2.5rem,6vw,5rem);font-weight:400;margin-bottom:2rem;letter-spacing:-0.02em;}
+  .cta-minimal h2 em{font-style:italic;color:#888;}
+  .cta-minimal p{font-family:'Segoe UI',sans-serif;font-size:0.95rem;color:#888;margin-bottom:3rem;}
+  .btn-white{background:#fff;color:#111;border:none;padding:0.85rem 2.5rem;font-family:'Segoe UI',sans-serif;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;}
+
+  footer{background:#fafafa;border-top:1px solid var(--border);padding:2rem 8%;display:flex;justify-content:space-between;align-items:center;}
+  footer *{font-family:'Segoe UI',sans-serif;font-size:0.78rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Studio Blanc</div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta">Start a Project</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Design Studio · Est. 2026</div>
+    <h1 class="hero-title">Design.<br><em>Simple.</em><br>Pure.</h1>
+    <p class="hero-sub">We craft minimalist digital experiences that let your content breathe and your brand speak for itself.</p>
+    <div class="hero-actions">
+      <button class="btn-solid">View Work</button>
+      <button class="btn-link">Learn More</button>
+    </div>
+  </div>
+  <img class="hero-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="Design work" />
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee">
+    <div class="marquee-item">Web Design<span class="marquee-dot"></span>Brand Identity<span class="marquee-dot"></span>UI/UX<span class="marquee-dot"></span>Digital Strategy<span class="marquee-dot"></span>Web Design<span class="marquee-dot"></span>Brand Identity<span class="marquee-dot"></span>UI/UX<span class="marquee-dot"></span>Digital Strategy<span class="marquee-dot"></span>Web Design<span class="marquee-dot"></span>Brand Identity<span class="marquee-dot"></span>UI/UX<span class="marquee-dot"></span>Digital Strategy<span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="section-label">Selected Work</div>
+  <div class="work-list">
+    <div class="work-item"><span class="work-num">01</span><span class="work-name">Bella Vista Restaurant</span><span class="work-type">Web Design</span><span class="work-arrow">→</span></div>
+    <div class="work-item"><span class="work-num">02</span><span class="work-name">LeadFlow SaaS Platform</span><span class="work-type">UI / UX</span><span class="work-arrow">→</span></div>
+    <div class="work-item"><span class="work-num">03</span><span class="work-name">PropMax Real Estate</span><span class="work-type">Brand + Web</span><span class="work-arrow">→</span></div>
+    <div class="work-item"><span class="work-num">04</span><span class="work-name">Aurora Fashion Store</span><span class="work-type">E-Commerce</span><span class="work-arrow">→</span></div>
+    <div class="work-item"><span class="work-num">05</span><span class="work-name">LexiCo Law Firm</span><span class="work-type">Corporate Web</span><span class="work-arrow">→</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <img class="about-img" src="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&q=80" alt="Studio" />
+    <div class="about-text">
+      <div class="section-label">About Studio</div>
+      <h2>Design with <em>purpose</em><br>and precision.</h2>
+      <p>We believe the best design is the design you don't notice. It simply works — guiding users, communicating value, and building trust without ever getting in the way.</p>
+      <p>Every pixel, every line of code, every color choice is intentional. We reject complexity and excess. We embrace clarity.</p>
+      <div class="about-stats">
+        <div class="about-stat"><div class="about-stat-num">150+</div><div class="about-stat-label">Projects</div></div>
+        <div class="about-stat"><div class="about-stat-num">5 yr</div><div class="about-stat-label">Experience</div></div>
+        <div class="about-stat"><div class="about-stat-num">40+</div><div class="about-stat-label">Clients</div></div>
+        <div class="about-stat"><div class="about-stat-num">48h</div><div class="about-stat-label">Turnaround</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">Services</div>
+  <div class="services-grid">
+    <div class="service-minimal"><div class="service-minimal-num">01</div><h3>Web Design</h3><p>Clean, purposeful websites that communicate your brand with zero noise and maximum impact.</p><div class="service-minimal-price">From $25</div></div>
+    <div class="service-minimal"><div class="service-minimal-num">02</div><h3>Brand Identity</h3><p>Logos, typography, color systems, and guidelines that give your brand a consistent voice.</p><div class="service-minimal-price">From $50</div></div>
+    <div class="service-minimal"><div class="service-minimal-num">03</div><h3>UI/UX Design</h3><p>User interfaces and experiences that are intuitive, accessible, and delightful to use.</p><div class="service-minimal-price">Custom</div></div>
+  </div>
+</section>
+
+<section id="pricing" style="background:#fff;">
+  <div class="section-label">Pricing</div>
+  <div class="pricing-minimal">
+    <div class="price-minimal"><div class="price-minimal-name">Starter</div><div class="price-minimal-amount">$25</div><div class="price-minimal-period">one-time</div><ul><li>3-page site</li><li>Mobile ready</li><li>Contact form</li><li>3-day delivery</li></ul><button class="price-minimal-btn">Select</button></div>
+    <div class="price-minimal" style="background:#fafafa;"><div class="price-minimal-name">Business</div><div class="price-minimal-amount">$50</div><div class="price-minimal-period">one-time</div><ul><li>5-page site</li><li>Animations</li><li>SEO setup</li><li>5-day delivery</li></ul><button class="price-minimal-btn">Select</button></div>
+    <div class="price-minimal"><div class="price-minimal-name">SaaS</div><div class="price-minimal-amount">$99</div><div class="price-minimal-period">one-time</div><ul><li>Landing page</li><li>Waitlist form</li><li>Payment setup</li><li>48h delivery</li></ul><button class="price-minimal-btn">Select</button></div>
+    <div class="price-minimal" style="background:#111;color:#fff;"><div class="price-minimal-name" style="color:#888;">E-Commerce</div><div class="price-minimal-amount">$125</div><div class="price-minimal-period" style="color:#888;">one-time</div><ul style="color:#888;"><li>Full store</li><li>10 products</li><li>Payments</li><li>7-day delivery</li></ul><button class="price-minimal-btn" style="background:#fff;color:#111;">Select</button></div>
+  </div>
+</section>
+
+<div class="cta-minimal" id="contact">
+  <h2>Let's work <em>together</em><br>on something beautiful.</h2>
+  <p>We typically respond within 4 hours. Projects start the same day.</p>
+  <button class="btn-white">Start a Conversation →</button>
+</div>
+
+<footer>
+  <span>Studio Blanc © 2026</span>
+  <span>Designed with intention.</span>
+  <span>aliakberhyder@gmail.com</span>
+</footer>
+
+<script>
+  document.querySelectorAll('.work-item').forEach((item,i)=>{
+    item.style.opacity='0';item.style.transform='translateX(-20px)';item.style.transition=`opacity 0.5s ${i*0.1}s ease, transform 0.5s ${i*0.1}s ease`;
+  });
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.work-item,.service-minimal,.about-stat').forEach(el=>{el.style.opacity='1';el.style.transform='none';});}});
+  },{threshold:0.1});
+  document.querySelectorAll('#work,#services,.about-stats').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
